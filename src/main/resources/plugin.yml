@@ -1,0 +1,11 @@
+name: PsychiatrykManager
+version: '${version}'
+
+main: me.pinkcandy.psychiatrykManager.PsychiatrykManager
+api-version: '1.21'
+load: POSTWORLD
+
+commands:
+  link:
+    description: Link your account with Discord.
+    usage: /link <Nik Discord>

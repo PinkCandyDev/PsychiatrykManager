@@ -1,0 +1,4 @@
+#Discord intergration
+token: "token" #discord bot token
+guildId: "guildid" #discord server id
+statusChannelId: "statuschannelid" #discord channel id for status messages
