@@ -4,16 +4,18 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 
-public class GetUser {
+public class GetUserId {
 
     public static Guild guild;
 
-    public static User getUser(String username) {
-        User user = guild.getMembers().stream()
+    public static long fromUsername(String username){
+        long id = guild.getMembers().stream()
                 .map(Member::getUser)
-                .filter(u -> u.getName().equalsIgnoreCase(username))
+                .filter(u -> u.getId().equalsIgnoreCase(username))
+                .map(User::getIdLong)
                 .findFirst()
-                .orElse(null);
-        return user;
+                .orElse(0L);
+        return id;
+
     }
 }

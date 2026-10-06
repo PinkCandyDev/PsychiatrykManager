@@ -1,5 +1,6 @@
 package me.pinkcandy.psychiatrykManager;
 
+import me.pinkcandy.psychiatrykManager.db.DatabaseInitializer;
 import me.pinkcandy.psychiatrykManager.discordAPI.DiscordBot;
 import me.pinkcandy.psychiatrykManager.discordAPI.status.SendStatus;
 import net.dv8tion.jda.api.JDA;
@@ -22,7 +23,7 @@ import java.util.List;
 public final class PsychiatrykManager extends JavaPlugin {
 
     private static PsychiatrykManager instance;
-    private Connection connection;
+    private static Connection connection;
 
     @Override
     public void onEnable() {
@@ -37,6 +38,8 @@ public final class PsychiatrykManager extends JavaPlugin {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        DatabaseInitializer.initializeDatabase();
 
         JDA jda = JDABuilder.createDefault(Config.getToken())
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
@@ -68,5 +71,9 @@ public final class PsychiatrykManager extends JavaPlugin {
 
     public static PsychiatrykManager getInstance() {
         return instance;
+    }
+
+    public static Connection getConnection() {
+        return connection;
     }
 }

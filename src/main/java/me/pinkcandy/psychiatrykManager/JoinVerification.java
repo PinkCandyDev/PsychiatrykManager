@@ -24,8 +24,6 @@ public class JoinVerification implements Listener {
         }
     }
 
-
-
     private boolean isPlayerRegistered(UUID playerUUID) {
         return false;
     }
