@@ -21,4 +21,14 @@ public class TitleSender {
             player.sendMessage("§aNastępnie użyj komendy §6/link <nick z discord>§a i dokończ konfigurację na Discordzie.");
         }, 155L);
     }
+
+    public static void SendAwaitVerification(Player player){
+        player.clearTitle();
+        player.sendTitle("Oczekiwanie na weryfikacje",
+                "Przejdź do discorda i kliknij ✅ w wysłanej ci widaomości prywatnej",
+                10, 9999, 20);
+        player.sendMessage("Oczekiwanie na weryfikacje");
+        player.sendMessage("Przejdź do discorda i kliknij ✅ w wysłanej ci widaomości prywatnej");
+
+    }
 }

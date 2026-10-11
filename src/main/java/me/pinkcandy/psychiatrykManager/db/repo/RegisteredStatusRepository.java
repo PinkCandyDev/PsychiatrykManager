@@ -9,20 +9,9 @@ import java.util.UUID;
 
 public class RegisteredStatusRepository {
 
-    public static void savePending(String uuid, long discordId) throws SQLException {
-        String sql = "INSERT INTO registered_status(uuid, discord_id, status) VALUES (?, ?, 'pending')" +
-                "ON CONFLICT(uuid) DO UPDATE SET status = 'pending'";
-
-        PreparedStatement ps = PsychiatrykManager.getConnection().prepareStatement(sql);
-
-        ps.setString(1, uuid);
-        ps.setLong(2, discordId);
-        ps.executeUpdate();
-    }
-
-    public static void saveVerified(String uuid, long discordId) throws SQLException {
-        String sql = "INSERT INTO registered_status(uuid, discord_id, status) VALUES (?, ?, 'verified')" +
-                "ON CONFLICT(uuid) DO UPDATE SET status = 'verified'";
+    public static void saveRegistered(String uuid, long discordId) throws SQLException {
+        String sql = "INSERT INTO registered_status(uuid, discord_id, status) VALUES (?, ?, 'registered')" +
+                "ON CONFLICT(uuid) DO UPDATE SET status = 'registered'";
 
         PreparedStatement ps = PsychiatrykManager.getConnection().prepareStatement(sql);
 
