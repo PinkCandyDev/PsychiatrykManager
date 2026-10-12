@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
+import java.sql.ResultSet;
 
 public class RegisteredStatusRepository {
 
@@ -36,5 +37,16 @@ public class RegisteredStatusRepository {
 
         ps.setLong(1, discordId);
         ps.executeUpdate();
+    }
+    public static String getStatus(String uuid) throws SQLException {
+        String sql = "SELECT status FROM registered_status WHERE uuid = ? LIMIT 1";
+
+        try (PreparedStatement ps = PsychiatrykManager.getConnection().prepareStatement(sql)) {
+            ps.setString(1, uuid);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getString("status") : null;
+            }
+        }
     }
 }
