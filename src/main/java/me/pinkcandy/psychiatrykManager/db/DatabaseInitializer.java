@@ -20,5 +20,17 @@ public class DatabaseInitializer {
             throw new RuntimeException(e);
         }
 
+        try {
+            Statement statement = PsychiatrykManager.getConnection().createStatement();
+
+            statement.execute(
+                    "CREATE TABLE IF NOT EXISTS status_channels (" +
+                            "channel_id LONG PRIMARY KEY," +
+                            "message_id LONG NOT NULL)");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

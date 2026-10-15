@@ -1,6 +1,7 @@
 package me.pinkcandy.psychiatrykManager;
 
 import me.pinkcandy.psychiatrykManager.db.DatabaseInitializer;
+import me.pinkcandy.psychiatrykManager.db.repo.StatusChannelsRepository;
 import me.pinkcandy.psychiatrykManager.discordAPI.DiscordBot;
 import me.pinkcandy.psychiatrykManager.discordAPI.status.SendStatus;
 import net.dv8tion.jda.api.JDA;
@@ -40,6 +41,13 @@ public final class PsychiatrykManager extends JavaPlugin {
         }
 
         DatabaseInitializer.initializeDatabase();
+
+        try {
+            SendStatus.messageId = StatusChannelsRepository.getMessageId(
+                    Long.parseLong(Config.getStatusChannelId()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         JDA jda = JDABuilder.createDefault(Config.getToken())
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
