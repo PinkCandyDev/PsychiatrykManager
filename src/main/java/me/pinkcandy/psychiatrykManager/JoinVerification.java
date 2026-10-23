@@ -1,10 +1,13 @@
 package me.pinkcandy.psychiatrykManager;
 
 import me.pinkcandy.psychiatrykManager.db.repo.RegisteredStatusRepository;
+import me.pinkcandy.psychiatrykManager.db.repo.VeryficationMessageIdRepository;
+import me.pinkcandy.psychiatrykManager.discordAPI.dm.AuthorizationMessage;
 import me.pinkcandy.psychiatrykManager.linking.TitleSender;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.eclipse.aether.repository.Authentication;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -38,6 +41,12 @@ public class JoinVerification implements Listener {
         return false;
     }
     private boolean checkAuthorization(UUID playerUUID) {
-        return true;
+        try {
+            long discordId = RegisteredStatusRepository.getDiscordUserId(playerUUID.toString());
+            long messageId = VeryficationMessageIdRepository.getMessageId(playerUUID.toString());
+            return AuthorizationMessage.isAuth(discordId, messageId).join();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

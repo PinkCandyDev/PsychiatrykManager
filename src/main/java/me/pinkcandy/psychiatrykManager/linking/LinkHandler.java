@@ -1,13 +1,16 @@
 package me.pinkcandy.psychiatrykManager.linking;
 
 import me.pinkcandy.psychiatrykManager.db.repo.RegisteredStatusRepository;
+import me.pinkcandy.psychiatrykManager.db.repo.VeryficationMessageIdRepository;
 import me.pinkcandy.psychiatrykManager.discordAPI.DiscordBot;
 import me.pinkcandy.psychiatrykManager.discordAPI.GetUserId;
 import me.pinkcandy.psychiatrykManager.discordAPI.ReactionListener;
+import me.pinkcandy.psychiatrykManager.discordAPI.dm.AuthorizationMessage;
 import me.pinkcandy.psychiatrykManager.discordAPI.dm.LinkRequest;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
+import java.util.concurrent.CompletableFuture;
 
 public class LinkHandler {
 
@@ -33,6 +36,8 @@ public class LinkHandler {
         try{
             RegisteredStatusRepository.saveRegistered(player.getUniqueId().toString(), id);
             LinkRequest.sendSuccess(DiscordBot.getJda().getUserById(id), player.getName());
+            CompletableFuture<Long> messageId = AuthorizationMessage.sendAuth(DiscordBot.getJda().getUserById(id));
+            VeryficationMessageIdRepository.saveMessageId(player.getUniqueId().toString(), messageId.join());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

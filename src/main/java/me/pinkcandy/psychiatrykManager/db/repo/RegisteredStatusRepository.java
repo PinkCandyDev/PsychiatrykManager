@@ -49,4 +49,15 @@ public class RegisteredStatusRepository {
             }
         }
     }
+    public static long getDiscordUserId(String uuid) throws SQLException {
+        String sql = "SELECT discord_id FROM registered_status WHERE uuid = ? LIMIT 1";
+
+        try (PreparedStatement ps = PsychiatrykManager.getConnection().prepareStatement(sql)) {
+            ps.setString(1, uuid);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.getLong("discord_id");
+            }
+        }
+    }
 }
