@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 public final class PsychiatrykManager extends JavaPlugin {
 
@@ -61,12 +62,12 @@ public final class PsychiatrykManager extends JavaPlugin {
         getServer().getPluginCommand("link").setExecutor(new CommandsHandler());
 
         Bukkit.getScheduler().runTaskTimer(instance, () -> {
-            List<String> nicknames = new ArrayList<>();
+            List<UUID> uuids = new ArrayList<>();
             for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-                nicknames.add(p.getName());
+                uuids.add(p.getUniqueId());
             }
             int online = Bukkit.getOnlinePlayers().size();
-            SendStatus.sendStatus(nicknames);
+            SendStatus.sendStatus(uuids);
             jda.getPresence().setActivity(
                     Activity.playing("(" + online + "/67) na Psychiatryku"));
         }, 0L, 20L * 15);
