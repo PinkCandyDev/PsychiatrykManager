@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -70,7 +69,7 @@ public final class PsychiatrykManager extends JavaPlugin {
             SendStatus.sendStatus(uuids);
             jda.getPresence().setActivity(
                     Activity.playing("(" + online + "/67) na Psychiatryku"));
-        }, 0L, 20L * 15);
+        }, 0L, 20L * Config.getStatusUpdateFrequency());
     }
 
     @Override

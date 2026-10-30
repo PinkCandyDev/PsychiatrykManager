@@ -5,12 +5,14 @@ public class Config {
     private static String token;
     private static String guildId;
     private static String statusChannelId;
+    private static int statusUpdateFrequency;
 
     public static void reloadConfig() {
         PsychiatrykManager.getInstance().reloadConfig();
         token = PsychiatrykManager.getInstance().getConfig().getString("token");
         guildId = PsychiatrykManager.getInstance().getConfig().getString("guildId");
         statusChannelId = PsychiatrykManager.getInstance().getConfig().getString("statusChannelId");
+        statusUpdateFrequency = PsychiatrykManager.getInstance().getConfig().getInt("statusUpdateFrequency");
     }
 
     public static String getToken() {
@@ -23,4 +25,5 @@ public class Config {
     public static String getStatusChannelId() {
         return statusChannelId;
     }
+    public static int getStatusUpdateFrequency(){return statusUpdateFrequency;}
 }
